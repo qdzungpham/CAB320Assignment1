@@ -170,6 +170,8 @@ def test_solve_3a():
     goal_state = load_state('workbenches/wb_06_g.txt')        
     display_state(goal_state,'\nGoal state')
     La = solve_3(initial_state, goal_state)
+    
+    return La
 #    ok_2 = La=='no solution'
 #    
 #    test_passed = ok_1 and ok_2
@@ -193,7 +195,7 @@ def test_solve_3b():
     
     print(La)
 
-    
+
     return False #test_passed
 
 # ---------------------------------------------------------------------------
@@ -365,9 +367,9 @@ then it will not pass the test functions the markers will use.
 
     #print('\n"test_solve_2" has been passed ', test_solve_2() )
 
-#    print('\ntest_solve_3a has been passed ', test_solve_3a() )
+    #print('\ntest_solve_3a has been passed ', test_solve_3a() )
 
-#    print('\ntest_solve_3b has been passed ', test_solve_3b() )
+    #print('\ntest_solve_3b has been passed ', test_solve_3b() )
 
 #    test_solve_4()
 
@@ -381,5 +383,5 @@ then it will not pass the test functions the markers will use.
     #test_solve_rand_1()
     #test_solve_2a()
     
-    test_solve_rand_2()
+    #test_solve_rand_2()
     

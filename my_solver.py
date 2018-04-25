@@ -109,12 +109,14 @@ def cost_rotated_subpart(some_part, goal_part):
     '''
     
     #raise NotImplementedError
+    if appear_as_subpart(some_part, goal_part):
+        return 0
     
-    new_tetris_part = np.array(some_part)
+    tetris_part = np.array(some_part)
     
     for num_rotation in range(1, 4):
-        new_tetris_part = np.array(new_tetris_part[:,::-1]).transpose()
-        if appear_as_subpart(new_tetris_part, goal_part):
+        tetris_part = np.array(tetris_part[:,::-1]).transpose()
+        if appear_as_subpart(tetris_part, goal_part):
             return num_rotation
     
     return np.inf
@@ -319,6 +321,7 @@ class AssemblyProblem_3(AssemblyProblem_1):
         all_legal_actions = []
         
         for pa_index in range(len(part_list)):
+            all_legal_actions.append((part_list[pa_index], None, None))
             for pu_index in range(len(part_list)):
                 if pa_index != pu_index:
                     start, end = offset_range(part_list[pa_index], part_list[pu_index])
@@ -338,9 +341,33 @@ class AssemblyProblem_3(AssemblyProblem_1):
         """
         # Here a workbench state is a frozenset of parts        
  
-        raise NotImplementedError
+        #raise NotImplementedError
+        
+        part_list = list(state)
 
+        pa, pu, offset = action
+        
+        if pu == None:
+            part_list.remove(pa)
+            
+            rotated_part = TetrisPart(pa)
+            rotated_part.rotate90()
+            
+            part_list.append(rotated_part.get_frozen())
+            
+            return make_state_canonical(part_list)
+        else:
+            part_list.remove(pa)
+            part_list.remove(pu)
+        
+            new_part = TetrisPart(pa, pu, offset)
+        
+        
+            part_list.append(new_part.get_frozen())
 
+            return make_state_canonical(part_list)
+        
+        
 # ---------------------------------------------------------------------------
 
 class AssemblyProblem_4(AssemblyProblem_3):
@@ -380,7 +407,7 @@ class AssemblyProblem_4(AssemblyProblem_3):
                 
         """
 
-        raise NotImplementedError
+        #raise NotImplementedError
         
         
         
@@ -483,7 +510,16 @@ def solve_3(initial, goal):
     '''
 
     print('\n++  busy searching in solve_3() ...  ++\n')
-    raise NotImplementedError
+    #raise NotImplementedError
+    
+    assembly_problem = AssemblyProblem_3(initial, goal)
+    
+    solution_node = generic_search.breadth_first_graph_search(assembly_problem);
+    
+    if solution_node == None:
+        return "no solution"
+    else:
+        return solution_node.solution()
     
 # ---------------------------------------------------------------------------
         

@@ -134,6 +134,9 @@ def test3():
     display_state((d.get_frozen(),c))
     
 def test4():
+    a0 =   ( (2, 2, 1),
+            (0, 0, 1))
+    
     a1 =   ( (0, 2),
             (0, 2),
             (1, 1))
@@ -155,8 +158,8 @@ def test4():
     print(cost_rotated_subpart(a4, b))
     
 if __name__ == '__main__':
-    #test2()
     test4()
+
     
     
     
