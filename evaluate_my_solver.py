@@ -214,6 +214,7 @@ def test_solve_4():
     
     La = solve_4(initial_state,goal_state)    
     
+    print(La)
     print('\n\n This problem is solvable \n')
     
     #
@@ -371,7 +372,8 @@ then it will not pass the test functions the markers will use.
 
     #print('\ntest_solve_3b has been passed ', test_solve_3b() )
 
-#    test_solve_4()
+    
+    test_solve_4()
 
 #    pass
     

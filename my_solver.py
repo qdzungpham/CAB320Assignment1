@@ -409,6 +409,23 @@ class AssemblyProblem_4(AssemblyProblem_3):
 
         #raise NotImplementedError
         
+        part_list = list(state)       
+        
+        filtered_actions = []
+    
+        
+        for pa_index in range(len(part_list)):
+            filtered_actions.append((part_list[pa_index], None, None))
+            for pu_index in range(len(part_list)):
+                if pa_index != pu_index:
+                    start, end = offset_range(part_list[pa_index], part_list[pu_index])
+                    for offset in range(start, end):
+                        new_part = TetrisPart(part_list[pa_index], part_list[pu_index], offset)
+                        if new_part.offset != None:
+                            if appear_as_subpart(new_part.get_frozen(), self.goal[0]):
+                                filtered_actions.append((part_list[pa_index], part_list[pu_index], offset))
+        
+        return filtered_actions
         
         
     def h(self, n):
@@ -429,7 +446,21 @@ class AssemblyProblem_4(AssemblyProblem_3):
           
         '''
 
-        raise NotImplementedError
+        #raise NotImplementedError
+        n_part_list = list(n.state)
+        
+        k_n = len(n_part_list)
+        
+        k_g = len(self.goal)
+        
+        max_num_rotations = 0
+        
+        for i in range(k_n):
+            num_rotations = cost_rotated_subpart(n_part_list[i], self.goal[0])
+            if num_rotations > max_num_rotations:
+                max_num_rotations = num_rotations
+        
+        return k_n - k_g + max_num_rotations
 
 # ---------------------------------------------------------------------------
         
@@ -540,7 +571,16 @@ def solve_4(initial, goal):
 
     #         raise NotImplementedError
     print('\n++  busy searching in solve_4() ...  ++\n')
-    raise NotImplementedError
+    #raise NotImplementedError
+    
+    assembly_problem = AssemblyProblem_4(initial, goal)
+    
+    solution_node = generic_search.astar_graph_search(assembly_problem);
+    
+    if solution_node == None:
+        return "no solution"
+    else:
+        return solution_node.solution()
         
 # ---------------------------------------------------------------------------
 

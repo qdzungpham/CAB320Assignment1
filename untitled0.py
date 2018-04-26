@@ -68,8 +68,8 @@ def test2():
     print(b)
     c = np.array(b[:,::-1]).transpose()
     print(c)
-    d = np.array(c[:,::-1]).transpose()
-    print(d)
+    #d = np.array(c[:,::-1]).transpose()
+    #print(d)
     
 def actions(state):
         
@@ -158,7 +158,7 @@ def test4():
     print(cost_rotated_subpart(a4, b))
     
 if __name__ == '__main__':
-    test4()
+    test2()
 
     
     
