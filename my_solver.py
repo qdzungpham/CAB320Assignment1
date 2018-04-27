@@ -166,8 +166,9 @@ class AssemblyProblem_1(AssemblyProblem):
         #raise NotImplementedError
 
         # part_list = list(state)  #    HINT
-        
+        '''
         part_list = list(state)       
+        
         
         all_legal_actions = []
         
@@ -179,9 +180,20 @@ class AssemblyProblem_1(AssemblyProblem):
                         all_legal_actions.append((part_list[pa_index], part_list[pu_index], offset))
         
         return all_legal_actions
+    
+        '''
+        part_list = list(state)       
         
-
-
+        
+        all_legal_actions = []
+        for pa, pu in itertools.product(part_list, repeat=2):
+            if pa != pu:
+                start, end = offset_range(pa, pu)
+                for offset in range(start, end):
+                    all_legal_actions.append((pa, pu, offset))
+        
+        return all_legal_actions
+    
     def result(self, state, action):
         """
         Return the state (as a tuple of parts in canonical order)
@@ -261,15 +273,15 @@ class AssemblyProblem_2(AssemblyProblem_1):
         
         filtered_actions = []
         
-        for pa_index in range(len(part_list)):
-            for pu_index in range(len(part_list)):
-                if pa_index != pu_index:
-                    start, end = offset_range(part_list[pa_index], part_list[pu_index])
-                    for offset in range(start, end):
-                        new_part = TetrisPart(part_list[pa_index], part_list[pu_index], offset)
-                        if new_part.offset != None:
-                            if appear_as_subpart(new_part.get_frozen(), self.goal[0]):
-                                filtered_actions.append((part_list[pa_index], part_list[pu_index], offset))
+        for pa, pu in itertools.product(part_list, repeat=2):
+            if pa != pu:
+                start, end = offset_range(pa, pu)
+                for offset in range(start, end):
+                    new_part = TetrisPart(pa, pu, offset)
+                    if new_part.offset != None:                    
+                        for goal in self.goal:
+                            if appear_as_subpart(new_part.get_frozen(), goal):
+                                filtered_actions.append((pa, pu, offset))
         
         return filtered_actions
 

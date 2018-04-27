@@ -289,7 +289,7 @@ def test_solve_rand_2():
     
     La = solve_2(initial_state, goal_state)
     print(La)
-    play_solution(ap_1, La)
+
     
     t1 = time.time()
     
@@ -366,14 +366,14 @@ then it will not pass the test functions the markers will use.
     
     #print('\n"test_solve_1" has been passed ', test_solve_1() )
 
-    #print('\n"test_solve_2" has been passed ', test_solve_2() )
+    print('\n"test_solve_2" has been passed ', test_solve_2() )
 
     #print('\ntest_solve_3a has been passed ', test_solve_3a() )
 
     #print('\ntest_solve_3b has been passed ', test_solve_3b() )
 
     
-    test_solve_4()
+    #test_solve_4()
 
 #    pass
     

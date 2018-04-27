@@ -5,7 +5,7 @@ Created on Tue Apr 10 10:51:53 2018
 @author: PQD
 """
 import numpy as np
-
+import itertools
 from assignment_one import (TetrisPart, AssemblyProblem, offset_range, display_state, 
                             make_state_canonical, play_solution, 
                             load_state, make_random_state)
@@ -86,21 +86,7 @@ def actions(state):
         
         return legal_actions
     
-def result(state, action):
 
-        
-        part_list = list(state)
-        
-        pa, pu, offset = action
-
-        part_list.remove(pa)
-        part_list.remove(pu)
-        
-        new_part = TetrisPart(pa, pu, offset)
-        
-        part_list.append(new_part.get_frozen())
-        
-        return make_state_canonical(part_list)
 
 def test_solve1():
     initial_state = load_state('workbenches/wb_05_i.txt')        
@@ -158,7 +144,9 @@ def test4():
     print(cost_rotated_subpart(a4, b))
     
 if __name__ == '__main__':
-    test2()
+    for i, j in itertools.product([1,2,3],repeat=2):
+        #if i != j:
+            print(i, j,"\n")
 
     
     
